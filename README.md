@@ -7,12 +7,12 @@
 - Questions: 425
 
 ### Mandarin from OpenSLR
-- Wh-words sentences: [数量]
-- Questions: [数量]
+- Wh-words sentences: 
+- Questions: 
 
 ### Cantonese from CommonVoice
-- [添加具体统计类别和数量]
-
+- Wh-words sentences: 
+- Questions: 
 ##  PART2 Forced Alignment Models
 ### For Cantonese
 - [HKCantonese Models](https://github.com/chenchenzi/HKCantonese_models)
