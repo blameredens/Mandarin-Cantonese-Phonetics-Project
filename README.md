@@ -24,4 +24,4 @@
 Pypinyin （style=Style.TONE3）
 
 ## PART4 Corpus Resources
-[在这里列出具体的语料资源]
+ "Magic Data Technology Co., Ltd., "http://www.imagicdatatech.com/index.php/home/dataopensource/data_info/id/101", 05/2019"
