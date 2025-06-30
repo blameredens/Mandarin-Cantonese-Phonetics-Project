@@ -20,5 +20,8 @@
 ### For Mandarin
 - [Montreal Forced Aligner](https://montreal-forced-aligner.readthedocs.io/en/latest)
 
+## Librarys Used
+Pypinyin
+
 ## Corpus Resources
 [在这里列出具体的语料资源]
