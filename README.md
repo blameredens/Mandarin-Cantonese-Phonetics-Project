@@ -20,7 +20,7 @@
 ### For Mandarin
 - [Montreal Forced Aligner](https://montreal-forced-aligner.readthedocs.io/en/latest)
 
-## Librarys Used
+## Python Librarys Used
 Pypinyin （style=Style.TONE3）
 
 ## Corpus Resources
