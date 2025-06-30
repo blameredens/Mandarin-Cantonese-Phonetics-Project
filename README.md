@@ -3,8 +3,8 @@
 ## PART1 Dataset Count
 
 ### Mandarin from CommonVoice
-- Wh-words sentences: [数量]
-- Questions: [数量]
+- Wh-words sentences: 108
+- Questions: 425
 
 ### Mandarin from OpenSLR
 - Wh-words sentences: [数量]
