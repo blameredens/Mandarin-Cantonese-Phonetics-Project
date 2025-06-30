@@ -22,6 +22,7 @@
 
 ## PART3 Python Librarys Used
 Pypinyin （style=Style.TONE3）
+Pyaudio
 
 ## PART4 Corpus Resources
  "Magic Data Technology Co., Ltd., "http://www.imagicdatatech.com/index.php/home/dataopensource/data_info/id/101", 05/2019"
