@@ -21,6 +21,9 @@
 ### For Mandarin
 - [Montreal Forced Aligner](https://montreal-forced-aligner.readthedocs.io/en/latest)
 
+### Call Format：
+>mfa align "path of audio and lab files" "dictionary" "model" "result saving path" --clean
+
 ## PART3 Python Librarys Used
 Pypinyin （style=Style.TONE3）
 Pyaudio
