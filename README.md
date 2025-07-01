@@ -9,7 +9,7 @@
 
 ### Mandarin from OpenSLR
 - Wh-words sentences: 
-- Questions: 
+- Questions: 50,602
 
 ### Cantonese from CommonVoice
 - Wh-words sentences: 
