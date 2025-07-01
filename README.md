@@ -9,11 +9,11 @@
 
 ### Mandarin from OpenSLR
 - Wh-words sentences: 
-- Questions: 50,602
+- Questions: 12,646
 
 ### Cantonese from CommonVoice
-- Wh-words sentences: 
-- Questions: 
+- Wh-words sentences: 21,046
+- Questions: 24,356
 ##  PART2 Forced Alignment Models
 ### For Cantonese
 - [HKCantonese Models](https://github.com/chenchenzi/HKCantonese_models)
