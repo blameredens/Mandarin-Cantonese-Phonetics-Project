@@ -1,0 +1,110 @@
+form Batch Extract Acoustic Features
+    sentence audio_folder C:\Users\23255\Desktop\aaa\
+    sentence textgrid_folder C:\Users\23255\Desktop\aaa\
+    sentence output_file C:\Users\23255\Desktop\aaa\features.csv
+    comment Select features to extract:
+    boolean extract_pitch 1
+    boolean extract_formants 1
+    boolean extract_intensity 1
+    boolean extract_hnr 1
+    positive minimum_pitch 75
+    positive maximum_pitch 500
+    positive number_of_formants 3
+endform
+
+# Create output file with header
+header$ = "filename,interval_text,start_time,end_time,duration"
+if extract_pitch
+    header$ = header$ + ",f0_mean,f0_std,f0_min,f0_max"
+endif
+if extract_formants
+    header$ = header$ + ",f1_mean,f2_mean,f3_mean"
+endif
+if extract_intensity
+    header$ = header$ + ",intensity_mean,intensity_max"
+endif
+if extract_hnr
+    header$ = header$ + ",hnr_mean"
+endif
+writeFileLine: output_file$, header$
+
+# Get list of audio files
+Create Strings as file list: "wavFiles", audio_folder$ + "*.wav"
+numFiles = Get number of strings
+
+for ifile to numFiles
+    selectObject: "Strings wavFiles"
+    wavFile$ = Get string: ifile
+    baseName$ = wavFile$ - ".wav"
+    
+    # Read files
+    sound = Read from file: audio_folder$ + wavFile$
+    tg = Read from file: textgrid_folder$ + baseName$ + ".TextGrid"
+    
+    # Process all intervals in first tier
+    intervals = Get number of intervals: 1
+    
+    for i to intervals
+        selectObject: tg
+        text$ = Get label of interval: 1, i
+        if text$ != ""
+            start = Get start time of interval: 1, i
+            end = Get end time of interval: 1, i
+            dur = end - start
+            
+            # Initialize result line
+            resultLine$ = "'baseName$','text$','start','end','dur'"
+            
+            # Extract pitch features (now labeled as f0)
+            if extract_pitch
+                selectObject: sound
+                pitch = To Pitch: 0, minimum_pitch, maximum_pitch
+                meanF0 = Get mean: start, end, "Hertz"
+                stdF0 = Get standard deviation: start, end, "Hertz"
+                minF0 = Get minimum: start, end, "Hertz", "Parabolic"
+                maxF0 = Get maximum: start, end, "Hertz", "Parabolic"
+                resultLine$ = resultLine$ + ",'meanF0','stdF0','minF0','maxF0'"
+                removeObject: pitch
+            endif
+            
+            # Extract formant features
+            if extract_formants
+                selectObject: sound
+                formant = To Formant (burg): 0, number_of_formants, 5500, 0.025, 50
+                f1 = Get mean: 1, start, end, "Hertz"
+                f2 = Get mean: 2, start, end, "Hertz"
+                f3 = Get mean: 3, start, end, "Hertz"
+                resultLine$ = resultLine$ + ",'f1','f2','f3'"
+                removeObject: formant
+            endif
+            
+            # Extract intensity features
+            if extract_intensity
+                selectObject: sound
+                intensity = To Intensity: 100, 0
+                intMean = Get mean: start, end, "dB"
+                intMax = Get maximum: start, end, "Parabolic"
+                resultLine$ = resultLine$ + ",'intMean','intMax'"
+                removeObject: intensity
+            endif
+            
+            # Extract HNR
+            if extract_hnr
+                selectObject: sound
+                hnr = To Harmonicity (cc): 0.01, minimum_pitch, 0.1, 1.0
+                hnrMean = Get mean: start, end
+                resultLine$ = resultLine$ + ",'hnrMean'"
+                removeObject: hnr
+            endif
+            
+            # Write results
+            appendFileLine: output_file$, resultLine$
+        endif
+    endfor
+    
+    # Clean up
+    removeObject: sound, tg
+endfor
+
+# Completion message
+appendInfoLine: "Processing complete! Results saved to: 'output_file$'"
